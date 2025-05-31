@@ -55,7 +55,7 @@ app.get("/feed",async(req , res)=>{
     const dltUser=req.body._id;
     try{
         // const user= UserModel.findByIdAndDelete({_id:dltUser});
-        const user= UserModel.findByIdAndDelete({dltUser});
+        const user= await UserModel.findByIdAndDelete({dltUser});
 
         res.send("user deleted sucessfully");
     }
@@ -66,32 +66,32 @@ app.get("/feed",async(req , res)=>{
 
 
 
-    app.patch("/user/:userId",async(req,res)=>{
-        const data=req.body;
-        const UpdateUserId= req.params?.userId;
+    // app.patch("/user/:userId",async(req,res)=>{
+    //     const data=req.body;
+    //     const UpdateUserId= req.params?.userId;
         
-        try{
-            const ALLOWED_UPDATES=["firstName","lastName","password","gender","age","photoUrl","about","skills"];
-            let isUpdateAllowed = Object.keys(data).every((k)=>
-                ALLOWED_UPDATES.includes(k)
-            )
-            if(!isUpdateAllowed){
-                throw new Error("Update not allowed")
-            }
+    //     try{
+    //         const ALLOWED_UPDATES=["firstName","lastName","password","gender","age","photoUrl","about","skills"];
+    //         let isUpdateAllowed = Object.keys(data).every((k)=>
+    //             ALLOWED_UPDATES.includes(k)
+    //         )
+    //         if(!isUpdateAllowed){
+    //             throw new Error("Update not allowed")
+    //         }
 
-            if(data?.skills.length>10){
-                throw new Error("Can't take more than 10 skills")
-            }
+    //         if(data?.skills.length>10){
+    //             throw new Error("Can't take more than 10 skills")
+    //         }
 
-            await UserModel.findByIdAndUpdate({_id:UpdateUserId},   data,{
-                returnDocument:"after",
-                runValidators:true
-            })
-            res.send("user updated sucessfully")
-        }catch(err){
-            res.status(400).send("Something went wrong  "+err.message)
-        }
-    })
+    //         await UserModel.findByIdAndUpdate({_id:UpdateUserId},   data,{
+    //             returnDocument:"after",
+    //             runValidators:true
+    //         })
+    //         res.send("user updated sucessfully")
+    //     }catch(err){
+    //         res.status(400).send("Something went wrong  "+err.message)
+    //     }
+    // })
 
 
 

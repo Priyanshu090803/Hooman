@@ -3,7 +3,8 @@ const authRouter= express.Router();
 const UserModel = require("../models/user.model");
 const {validateSignUp} = require('../utils/validators.utils')
 const bcrypt= require("bcrypt");
-
+const { userAuth } = require("../Middleware/auth.middleware");
+const validator = require("validator")
 
 authRouter.post("/signup",async(req,res)=>{    
     try{
@@ -62,7 +63,19 @@ authRouter.post("/login",async(req,res)=>{
     }
 })
 
-authRouter.post("/logout",async(req,res)=>{
+
+authRouter.post("/logout",userAuth,async(req,res)=>{
+    await UserModel.findByIdAndUpdate(
+        req.user._id,       // added by me
+    { 
+        $unset:{
+            token:1
+        },
+    },
+    {
+        new:true
+    }
+)
     res.cookie("token",null,{
         expires: new Date(Date.now())
     }

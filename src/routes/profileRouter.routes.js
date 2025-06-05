@@ -32,7 +32,7 @@ profileRouter.patch("/profile/edit",userAuth,async(req,res)=>{
   });
 }
   catch(err){
-    res.status(400).send("ERROR:",err.message)
+    return res.status(400).send("ERROR:",err.message)
   }
 })
 
@@ -56,7 +56,7 @@ profileRouter.patch("/profile/password",userAuth,async(req,res)=>{
     })
   }
   catch(err){
-    res.status(400).send("ERROR:"+err.message)
+    return res.status(400).send("ERROR:"+err.message)
   }
 })
 

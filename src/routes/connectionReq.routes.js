@@ -53,7 +53,7 @@ connectReqRouter.post("/sendConnectionReq/send/:status/:touserId",userAuth,async
             data
         })
     } catch (error) {
-        res.status(400).send("Error"+error.message)
+        return res.status(400).send("Error"+error.message)
     }
 })
 
@@ -84,7 +84,7 @@ connectReqRouter.post("/request/review/:status/:requestId",userAuth,async(req,re
             message:"Connection request "+status, data
         })
     } catch (error) {
-        res.status(400).send("ERROR"+error.message)
+        return res.status(400).send("ERROR"+error.message)
     }
 })
 

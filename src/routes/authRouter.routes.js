@@ -30,7 +30,7 @@ authRouter.post("/signup",async(req,res)=>{
     res.send("Data saved sucessfully")
 
 }catch(err){
-    res.status(400).send("ERROR:"+ err.message)
+    return res.status(400).send("ERROR:"+ err.message)
 }
    
 })
@@ -62,7 +62,7 @@ authRouter.post("/login",async(req,res)=>{
     
 }
     catch(err){
-        res.status(400).send("ERROR:"+err.message)
+       return res.status(400).send("ERROR:"+err.message)
     }
 })
 

@@ -23,7 +23,7 @@ userRouter.get("/user/request/received",userAuth,async(req,res)=>{
             data:connectionRequest
         })
     } catch (error) {
-        res.statusCode(400).send("ERROR:"+error.message)
+       return res.statusCode(400).send("ERROR:"+error.message)
     }
 })
 
@@ -54,7 +54,7 @@ userRouter.get("/user/connections",userAuth,async(req,res)=>{ // yha connection 
             data
         })
     } catch (error) {
-        res.status(404).send({message:error.message})
+        return res.status(404).send({message:error.message})
     }
 })
 
@@ -87,7 +87,7 @@ userRouter.get("/user/feed",userAuth,async(req,res)=>{
         }).select(USER_SAFE_DATA).limit(limit).skip(skip) // mongodb understand skip not page:
         res.send(users)
     } catch (error) {
-        res.status(400).json({message:error.message})
+       return res.status(400).json({message:error.message})
     }
 })
 

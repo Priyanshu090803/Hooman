@@ -1,3 +1,4 @@
+const dotenv = require('dotenv')
 const express=require('express'); 
 const app=express();
 const connectDB = require("./config/database")
@@ -5,7 +6,6 @@ const UserModel = require('./models/user.model.js');
 const cookiesParser = require("cookie-parser");
 const cors = require("cors")// cors use krenge bcz, backend ko same domain and ip chahiye hota h due to cors policy and cors use krke ye khtm hog
                             // jata h
-
 app.use(cors({ 
     origin: [
     'http://localhost:3000', // Your frontend URL      // WHITELISTING  THE DOMAINS (koi bhi domain use kr skte h)
@@ -13,7 +13,10 @@ app.use(cors({
     'https://www.yourproductiondomain.com'
   ],  
     credentials:true
-}))       
+}))    
+dotenv.config({
+    path:"./.env"
+})   
    // now cors error will not come
 app.use(express.json())
 app.use(cookiesParser())

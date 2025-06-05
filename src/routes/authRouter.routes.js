@@ -5,24 +5,34 @@ const {validateSignUp} = require('../utils/validators.utils')
 const bcrypt= require("bcrypt");
 const { userAuth } = require("../Middleware/auth.middleware");
 const validator = require("validator")
+const {upload} = require("../Middleware/multer.middleware.js");
+const { uploadOnCloudinary } = require("../utils/cloudinary.service");
 
-authRouter.post("/signup",async(req,res)=>{    
+authRouter.post("/signup",upload.single("photoUrl"),async(req,res)=>{    
     try{
         // validation of the data:
         validateSignUp(req)
         
         const {firstName , lastName, gender , email, password}=req.body;
-         
+         const existingUser = await UserModel.findOne({email})
+         if(existingUser){
+            throw new Error("User already exists")
+         }
         //Encrypt the password: // salting karni 
         const passwordHash= await bcrypt.hash(password,10);
         // console.log(password);
-        
+           const localFilePath = req.file.path;
+           if(!localFilePath){
+            throw new Error("Can't find localPath")
+           }
+           const photoUrl = await uploadOnCloudinary(localFilePath)
 
         const user=new UserModel({  // instance of UserModel 
             firstName,
             lastName,
             email,
             gender,
+            photoUrl:photoUrl.url||"",
             password:passwordHash,
         })
 

@@ -28,7 +28,7 @@ const userSchema=new mongoose.Schema({
         type:String,
         lowercase:true,
         required:true,
-        unique:true,
+        unique:true,        // if we do unique=true it create index in db, and index is very much imp for finding in db
         trim:true,
         validate(value){
             if(!validator.isEmail(value)){
@@ -54,11 +54,15 @@ const userSchema=new mongoose.Schema({
     gender:{
         type:String,
         required:true,
-        validate(value){
-            if(!["male","female","others"].includes(value)){
-                throw new Error("Enter valid gender");  
-            }
+        enum:{
+            values:["male","female","others"],
+            message: `{VALUE} is not a valid gender`
         },
+        // validate(value){
+        //     if(!["male","female","others"].includes(value)){
+        //         throw new Error("Enter valid gender");  
+        //     }
+        // },
         lowercase:true,
 
     },
@@ -69,11 +73,11 @@ const userSchema=new mongoose.Schema({
     },
     photoUrl:{
         type:String,
+        default:"https://www.pngitem.com/pimgs/m/130-1300400_user-hd-png-download.png" ,
         validate(value){
             if(!validator.isURL(value)){
                 throw new Error("Invalid url address"+value);
             }
-            
         }
     },
     about:{
@@ -106,8 +110,8 @@ userSchema.methods.validatePassword= async function(inputPassByUser){
     )
     return isPasswordValid;
 }
+const UserModel = mongoose.model("UserModel",userSchema)
 
-
-module.exports= mongoose.model("UserModel",userSchema)
+module.exports= UserModel
 
 

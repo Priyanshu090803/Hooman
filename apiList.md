@@ -20,6 +20,6 @@ Post  /request/review/accepted/:reqeustId
       /request/review/rejected/:reqeustId
 
 User Router
-Get  /connection  :for checking connection
-Get  /request/recieved   :for checking recieved 
- Get /feed - get u feed of profiles of other user (it will fetch 20-30 profile at a time)
+Get  /user/connection  :for checking connection
+Get  /user/request/recieved   :for checking recieved 
+Get /user/feed - get u feed of profiles of other user (it will fetch 20-30 profile at a time)

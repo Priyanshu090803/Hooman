@@ -3,20 +3,30 @@ const app=express();
 const connectDB = require("./config/database")
 const UserModel = require('./models/user.model.js');
 const cookiesParser = require("cookie-parser");
+const cors = require("cors")// cors use krenge bcz, backend ko same domain and ip chahiye hota h due to cors policy and cors use krke ye khtm hog
+                            // jata h
 
-
-
+app.use(cors({ 
+    origin: [
+    'http://localhost:3000', // Your frontend URL      // WHITELISTING  THE DOMAINS (koi bhi domain use kr skte h)
+    'https://yourproductiondomain.com',
+    'https://www.yourproductiondomain.com'
+  ],  
+    credentials:true
+}))       
+   // now cors error will not come
 app.use(express.json())
 app.use(cookiesParser())
 
 const authRouter = require('./routes/authRouter.routes.js')
 const connectReqRouter = require("./routes/connectionReq.routes.js")
 const profileRouter = require ('./routes/profileRouter.routes.js')
+const userRouter = require("./routes/user.routes.js")
 
 app.use("/",authRouter);
 app.use("/",connectReqRouter);
 app.use("/",profileRouter)
-
+app.use("/",userRouter)
 
 
 

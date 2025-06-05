@@ -44,19 +44,22 @@ authRouter.post("/login",async(req,res)=>{
        throw new Error ("Please enter valid email")
     }
     const user = await UserModel.findOne({email:email})
+
     if(!user){
         throw new Error("Invalid credentials!!")
     }
     const isPasswordValid = await user.validatePassword(password)
+    const loggedInUser = await UserModel.findById(user._id).select(" -password ")
 
     if(isPasswordValid){
         const token= await user.getJWTtoken();  
         res.cookie("token",token);
-        res.send("Login sucessfull!!")
+        res.send(loggedInUser)
     }
     else{
         throw new Error("Invalid credentials!!")
     }
+    
 }
     catch(err){
         res.status(400).send("ERROR:"+err.message)

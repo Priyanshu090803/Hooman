@@ -12,7 +12,6 @@ const userAuth = async(req,res,next)=>{
    const decodeObj =  jwt.verify(token,"DevTinder$333");
    const {_id} = decodeObj;
    const user = await UserModel.findById(_id);
-   console.log(user)
    if(!user){
     return res.status(400).send("User not found");
    }

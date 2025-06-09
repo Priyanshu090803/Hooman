@@ -120,13 +120,14 @@ app.get("/feed",async(req , res)=>{
 
 
 connectDB().then(()=>{
-    console.log('Dabase connected sucessfully')
+    console.log('Database connected sucessfully')
     const port=3000;
     app.listen(port,(req,res)=>{
         console.log('server started sucessfully')
     })
     
 }).catch((err)=>{
+    console.log(err)
     console.log("Database did't connected")
 })
 

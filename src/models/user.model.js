@@ -84,9 +84,23 @@ const userSchema=new mongoose.Schema({
         type:String,
         default:"Hey I am using DevTinder"
     },
-    skills:{
-        type:[String]
-    }
+    skills: {
+    type: [String],
+    validate: {
+        validator: function(skillsArray) {
+            // Check if array length is within limit
+            if (skillsArray.length > 5) {
+                return false;
+            }
+            // Check if any skill is empty or just whitespace
+            return skillsArray.every(skill => 
+                skill && skill.trim().length > 0 && skill.trim().length <= 10
+            );
+        },
+        message: 'Skills array can have maximum 5 skills, and each skill must be non-empty and under 50 characters'
+    },
+    default: []
+}
 },
 {
     timestamps:true 

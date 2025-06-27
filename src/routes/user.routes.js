@@ -66,7 +66,8 @@ userRouter.get("/user/feed",userAuth,async(req,res)=>{
          const skip = (page-1)*limit
         // user shouldn't see:// his card//ignored cards //connections card //already sent connection request 
         const loggedInUser = req.user;
-        if(!loggedInUser){
+        if(!loggedInUser)
+            {
            return res.status(404).json({message:"User is not logged in"})
         }
         const connectionRequests = await connectionRequestModel.find({

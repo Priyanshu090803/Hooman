@@ -46,17 +46,17 @@ dotenv.config({
 
 app.use(cors({
     origin: [
-      'http://localhost:3000',           // React dev server
-      'http://localhost:8080',           // Alternative dev port
-      'http://localhost:5173',           // Vite dev server
-      'https://hooman090803.vercel.app', // Your Vercel domain
-      /https:\/\/.*\.vercel\.app$/       // All Vercel preview deployments
+      'http://localhost:3000',
+      'http://localhost:8080',
+      'http://localhost:5173',
+      'https://hooman090803.vercel.app',
+      'https://hooman090803-git-main-priyanshu-chandra-tamias-projects.vercel.app',
+      /https:\/\/.*\.vercel\.app$/ // Regex for all Vercel preview URLs
     ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Cookie']
 }));
-
 app.use(express.json())
 app.use(cookiesParser())
 

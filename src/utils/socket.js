@@ -17,11 +17,21 @@ const initializeSocket = (server)=>{
     const io = socket(server,{
         cors:{
         origin: [
-          'http://localhost:3000', // Your frontend URL      // WHITELISTING  THE DOMAINS (koi bhi domain use kr skte h)
-          'https://yourproductiondomain.com',
-          'https://www.yourproductiondomain.com',
+          // Development origins
+          'http://localhost:3000',
+          'http://localhost:8080',
           'http://localhost:5173',
-  ]}
+          // Production origins
+          'https://developer-tinder-frontend.vercel.app',
+          'https://hooman.onrender.com',
+          // Vercel preview URLs
+          /https:\/\/.*\.vercel\.app$/,
+          // Render preview URLs
+          /https:\/\/.*\.onrender\.com$/
+        ],
+        credentials: true,
+        methods: ['GET', 'POST']
+  }
 });
     io.on("connection",(socket)=>{
         socket.on("joinChat",({userId,targetUserId})=>{    // creating a room
@@ -67,10 +77,13 @@ const initializeSocket = (server)=>{
 
         }catch(err){
             console.log(err)
+            socket.emit("error", { message: "Failed to send message" });
         }
     
     })
-        socket.on("disconnect",()=>{})
+        socket.on("disconnect",()=>{
+            console.log("User disconnected:", socket.id);
+        })
     })
 }
 

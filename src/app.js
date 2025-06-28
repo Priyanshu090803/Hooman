@@ -54,5 +54,6 @@ connectDB().then(()=>{
     
 }).catch((err)=>{
     console.log(err)
-    console.log("Database did't connected")
+    console.log("Database didn't connect")
+    process.exit(1) // Exit process if database connection fails
 })

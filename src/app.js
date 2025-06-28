@@ -31,18 +31,31 @@ dotenv.config({
 // }))   
  
    // now cors error will not come
+// app.use(cors({
+//     origin: [
+//       'http://localhost:8080',
+//       'https://yourproductiondomain.com',
+//       'https://www.yourproductiondomain.com',
+//       'http://localhost:5173'
+//     ],
+//     credentials: true,
+//     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+//     allowedHeaders: ['Content-Type', 'Authorization']
+// }));
+
+
 app.use(cors({
     origin: [
-      'http://localhost:8080',
-      'https://yourproductiondomain.com',
-      'https://www.yourproductiondomain.com',
-      'http://localhost:5173'
+      'http://localhost:3000',           // React dev server
+      'http://localhost:8080',           // Alternative dev port
+      'http://localhost:5173',           // Vite dev server
+      'https://hooman090803.vercel.app', // Your Vercel domain
+      /https:\/\/.*\.vercel\.app$/       // All Vercel preview deployments
     ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    allowedHeaders: ['Content-Type', 'Authorization', 'Cookie']
 }));
-
 
 app.use(express.json())
 app.use(cookiesParser())

@@ -13,37 +13,20 @@ dotenv.config({
 })  
 
 
-// require("./utils/cronjob.js")
-// app.use(cors({ 
-//     origin: [
-//     'http://localhost:3000', // Your frontend URL      // WHITELISTING  THE DOMAINS (koi bhi domain use kr skte h)
-//     'https://yourproductiondomain.com',
-//     'https://www.yourproductiondomain.com',
-//      'http://localhost:5173',
-//   ],  
-//     credentials:true,
-//     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-//     allowedHeaders: ['Content-Type', 'Authorization']
-// }))   
-// app.use(cors({
-//     origin:'*',
-//     credentials:true
-// }))   
- 
-   // now cors error will not come
+
 app.use(cors({
     origin: [
+      'http://localhost:3000',
       'http://localhost:8080',
-      'https://yourproductiondomain.com',
-      'https://www.yourproductiondomain.com',
-      'http://localhost:5173'
+      'http://localhost:5173',
+      'https://hooman090803.vercel.app',
+      'https://hooman090803-git-main-priyanshu-chandra-tamias-projects.vercel.app',
+      /https:\/\/.*\.vercel\.app$/ // Regex for all Vercel preview URLs
     ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    allowedHeaders: ['Content-Type', 'Authorization', 'Cookie']
 }));
-
-
 app.use(express.json())
 app.use(cookiesParser())
 
@@ -71,5 +54,6 @@ connectDB().then(()=>{
     
 }).catch((err)=>{
     console.log(err)
-    console.log("Database did't connected")
+    console.log("Database didn't connect")
+    process.exit(1) // Exit process if database connection fails
 })

@@ -19,6 +19,7 @@ app.use(cors({
       'http://localhost:3000',
       'http://localhost:8080',
       'http://localhost:5173',
+      'https://hooman-six.vercel.app/',
       'https://hooman090803.vercel.app',
       'https://hooman090803-git-main-priyanshu-chandra-tamias-projects.vercel.app',
       /https:\/\/.*\.vercel\.app$/ // Regex for all Vercel preview URLs

@@ -1,2 +1,3 @@
 node_modules
 package-lock.jsonRemove-Item -Recurse -Force -Path src\.git
+.env
